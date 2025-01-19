@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
-import AppCard from "./components/AppCard";
 import AppHeader from "./components/AppHeader";
+import AppMain from "./components/AppMain";
 
 
 const apiKey = "4536b50a4d717df588d38379be595613";
@@ -35,19 +35,9 @@ function App() {
   return (
     <>
        <AppHeader onSearch={getMovies}/>
-
-      <main>
-        <section>
-          <h2>Film</h2>
-          <div>
-            {movies.map(movie => (
-              <AppCard key={movie.id} curItem={movie}/>
-            ))}
-          </div>
-        </section>
-      </main>
+       <AppMain movies={movies}/>
     </>
   )
 }
 
-export default App
+export default App;
