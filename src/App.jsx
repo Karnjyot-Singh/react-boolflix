@@ -1,33 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import axios from "axios"
+import { useEffect, useState } from "react"
+
+
+const apiKey = "4536b50a4d717df588d38379be595613";
+const apiUrl = "https://api.themoviedb.org/3";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchValue, setSearchValue] = useState("");
+
+  // useEffect(()=>{
+  //   getMovies()
+  // },  [])
+
+  function getMovies() {
+    axios.get(`${apiUrl}/search/movie`, {
+      params: {
+        api_key: apiKey,
+        query: searchValue,
+
+      }
+    }).then((resp)=> {
+      console.log(resp);
+      
+    })
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Ciao</h1>
+      <input type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
+      <button onClick={getMovies}>Cerca</button>
     </>
   )
 }
