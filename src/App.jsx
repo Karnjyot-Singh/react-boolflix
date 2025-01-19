@@ -1,5 +1,7 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import AppCard from "./components/AppCard";
+import AppHeader from "./components/AppHeader";
 
 
 const apiKey = "4536b50a4d717df588d38379be595613";
@@ -13,7 +15,7 @@ function App() {
   //   getMovies()
   // },  [])
 
-  function getMovies() {
+  function getMovies(searchValue) {
     axios.get(`${apiUrl}/search/movie`, {
       params: {
         api_key: apiKey,
@@ -28,28 +30,18 @@ function App() {
     })
   }
 
-  function handleEnterKey(event) {
-    if (event.key === "Enter") {
-      getMovies();
-    }
-  }
+
 
   return (
     <>
-    <header>
-      <div>Boolflix</div>
-      <input type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)} onKeyUp={handleEnterKey}/>
-      <button onClick={getMovies}>Cerca</button>
-      </header>  
+       <AppHeader onSearch={getMovies}/>
 
       <main>
         <section>
           <h2>Film</h2>
           <div>
             {movies.map(movie => (
-              <div key={movie.id}>
-                <h4>{movie.title}</h4>
-              </div>
+              <AppCard key={movie.id} curItem={movie}/>
             ))}
           </div>
         </section>
