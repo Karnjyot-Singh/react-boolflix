@@ -47,7 +47,7 @@ function App() {
           <h2>Film</h2>
           <div>
             {movies.map(movie => (
-              <div>
+              <div key={movie.id}>
                 <h4>{movie.title}</h4>
               </div>
             ))}
