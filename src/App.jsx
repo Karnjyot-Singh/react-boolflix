@@ -7,6 +7,7 @@ const apiUrl = "https://api.themoviedb.org/3";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
+  const [movies, setMovies] = useState([]);
 
   // useEffect(()=>{
   //   getMovies()
@@ -22,14 +23,37 @@ function App() {
     }).then((resp)=> {
       console.log(resp);
       
+      setMovies(resp.data.results);
+      
     })
+  }
+
+  function handleEnterKey(event) {
+    if (event.key === "Enter") {
+      getMovies();
+    }
   }
 
   return (
     <>
-      <h1>Ciao</h1>
-      <input type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
+    <header>
+      <div>Boolflix</div>
+      <input type="search" value={searchValue} onChange={(event) => setSearchValue(event.target.value)} onKeyUp={handleEnterKey}/>
       <button onClick={getMovies}>Cerca</button>
+      </header>  
+
+      <main>
+        <section>
+          <h2>Film</h2>
+          <div>
+            {movies.map(movie => (
+              <div>
+                <h4>{movie.title}</h4>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
     </>
   )
 }
