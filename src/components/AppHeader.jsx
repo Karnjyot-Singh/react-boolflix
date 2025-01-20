@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useGlobalContext } from "./context/GlobalContext";
 
-function AppHeader({onSearch}) {
+function AppHeader() {
     const [searchValue, setSearchValue] = useState("");
+
+    const { onSearch } = useGlobalContext();
 
     function handleEnterKey(event) {
         if (event.key === "Enter") {
